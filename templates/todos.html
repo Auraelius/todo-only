@@ -10,7 +10,7 @@
     </div>
       <div class="right">
         <h1>TODOs</h1>
-        <form method='post'>
+        <form action="todos" method='post'>
           <label for="new_task_field">New Task:</label>
           <input id="new_task_field" type="text" name='task' />
           <input id="submit_button" type="submit" value='Add Task' />
@@ -35,5 +35,6 @@
       {% endfor %}
     </ul>
 
+    <a href="clear_todos">Clear task list</a>
   {% endif %}
 {% endblock %}

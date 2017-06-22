@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.config['DEBUG'] = True
 
 # Use a global variable to store tasks (until we learn about databases)
-tasks = []
+list_of_tasks = []
 
 
 @app.route('/')
@@ -32,9 +32,17 @@ def todos():
     """
     if request.method == 'POST':
         task = request.form['task']
-        tasks.append(task)
+        list_of_tasks.append(task)
 
     template = jinja_env.get_template('todos.html')
-    return template.render(title="TODOs", tasks=tasks)
+    return template.render(title="TODOs", tasks=list_of_tasks)
+
+@app.route('/clear_todos')
+def clear_todos():
+    """
+        clear the task list and redisplay
+    """
+    list_of_tasks.clear()
+    return redirect('/todos')
 
 app.run()

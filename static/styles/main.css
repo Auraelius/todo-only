@@ -3,8 +3,27 @@ body {
   font-size: 150%;
 }
 
+.container {
+  display: flex; 
+  background-color: lightyellow;
+}
+
 input {
   display: block;
-  margin: 1em;
+  margin: .8em;
   font-size: 100%;
+}
+
+#submit_button {
+    background-color: lightgreen;
+    border-radius:6px;
+    color: darkgreen;
+    cursor: pointer;
+    padding: .5em;
+    border:none;
+}
+
+#submit_button:hover {
+    background:lightblue;
+    box-shadow: 0px 5px 5px #777;
 }

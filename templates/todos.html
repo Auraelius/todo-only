@@ -1,32 +1,39 @@
 {# This template works inside of the 'base.html' template #}
 {% extends "base.html" %}
 
-{# Let's name this block so the base.html template know where to find it#}
+{# Let's name this block so the base.html template knows where to find it#}
 
 {% block content %}
-    <h1>TODOs</h1>
-    <form method='post'>
-        <label for="new_task_field">New Task:</label>
-        <input id="new_task_field" type="text" name='task' />
-        <input type="submit" value='Add Task' />
-    </form>
+  <div class="container">
+    <div class="left">
+      <img src="static/img/np_checklist_619423_30B32E.png" alt="a checklist on a clipboard" title="Noun Project Icon: Checklist by Arthur Shlain">
+    </div>
+      <div class="right">
+        <h1>TODOs</h1>
+        <form method='post'>
+          <label for="new_task_field">New Task:</label>
+          <input id="new_task_field" type="text" name='task' />
+          <input id="submit_button" type="submit" value='Add Task' />
+        </form>
+      </div>
+    </div>
 
-    <hr />
+  {# 
+    to get the length of the tasks variable, use the 'length' filter. These statements are like python, but not always exactly like python 
+  #}
 
-    {# 
-        to get the length of the tasks variable, use the 'length' filter. These statements are like python, but not always exactly like python 
-    #}
+  {% if tasks|length == 0 %} {# Only display the tasks if the list has entries #}
 
-    {# Only display the tasks if the list has entries #}
-    {% if tasks|length == 0 %}
-        <p>No tasks yet</p>
-    {% else %} {# iterate through the task list and create a LI element for each member of the list#}
-        <ul>
-            {% for task in tasks %}
-            <li>{{task}}</li>
-            {% endfor %}
-            {# we can't use indentation for the block, so we have to use for/endfor delimiters#}
-        </ul>
+    <p>No tasks yet</p>
 
-    {% endif %}
+  {% else %} {# iterate through the task list and create a LI element for each member of the list #}
+
+    <p>Work it!</p>
+    <ul>
+      {% for task in tasks %}
+        <li>{{task}}</li>
+      {% endfor %}
+    </ul>
+
+  {% endif %}
 {% endblock %}

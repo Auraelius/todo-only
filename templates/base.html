@@ -1,9 +1,19 @@
+{# 
+    This template is for the basic structure of the page and the head element. The body will be filled from other templates that "extend" this one.
+#}
+
 <!doctype html>
 <html>
     <head>
         <title>{{title}}</title>
+        <link rel= "stylesheet" type= "text/css" href= "static/styles/main.css">
     </head>
 <body>
+    {# 
+        For the actual guts of the page, let Jinja find the block named 'content'  in one of the other templates that extend this template.
+
+        We can't use indenting to delimit block, like in python, so we use a block/endblock keyword pair
+    #}
 
     {% block content %}
     {% endblock %}

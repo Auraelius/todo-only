@@ -1,25 +1,31 @@
+{# This template works inside of the 'base.html' template #}
 {% extends "base.html" %}
+
+{# Let's name this block so the base.html template know where to find it#}
 
 {% block content %}
     <h1>TODOs</h1>
     <form method='post'>
-        <label>
-            New Task:
-            <input type="text" name='task' />
-        </label>
+        <label for="new_task_field">New Task:</label>
+        <input id="new_task_field" type="text" name='task' />
         <input type="submit" value='Add Task' />
     </form>
 
     <hr />
 
-    {% if tasks|length == 0 %}
-    <p>No tasks yet</p>
-    {% else %}
+    {# 
+        to get the length of the tasks variable, use the 'length' filter. These statements are like python, but not always exactly like python 
+    #}
 
+    {# Only display the tasks if the list has entries #}
+    {% if tasks|length == 0 %}
+        <p>No tasks yet</p>
+    {% else %} {# iterate through the task list and create a LI element for each member of the list#}
         <ul>
             {% for task in tasks %}
             <li>{{task}}</li>
             {% endfor %}
+            {# we can't use indentation for the block, so we have to use for/endfor delimiters#}
         </ul>
 
     {% endif %}

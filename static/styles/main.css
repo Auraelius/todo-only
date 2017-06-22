@@ -1,0 +1,10 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 150%;
+}
+
+input {
+  display: block;
+  margin: 1em;
+  font-size: 100%;
+}

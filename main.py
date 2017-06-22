@@ -3,87 +3,33 @@ import cgi
 import os
 import jinja2
 
+# Set up jinja environment
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
-jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir), autoescape=True)
+jinja_env = jinja2.Environment(loader=jinja2.FileSystemLoader(template_dir), autoescape=True)
 
+# Set up Flask application
 app = Flask(__name__)
 app.config['DEBUG'] = True
 
-@app.route("/")
-def index():
-    template = jinja_env.get_template('hello_form.html')
-    return template.render()
-
-@app.route("/hello", methods=['POST'])
-def hello():
-    first_name = request.form['first_name']
-    template = jinja_env.get_template('hello_greeting.html')
-    return template.render(name=first_name)
-
-
-@app.route('/validate-time')
-def display_time_form():
-    template = jinja_env.get_template('time_form.html')
-    return template.render()
-
-
-def is_integer(num):
-    try:
-        int(num)
-        return True
-    except ValueError:
-        return False
-        
-
-@app.route('/validate-time', methods=['POST'])
-def validate_time():
-
-    hours = request.form['hours']
-    minutes = request.form['minutes']
-
-    hours_error = ''
-    minutes_error = ''
-
-    if not is_integer(hours):
-        hours_error = 'Not a valid integer'
-        hours = ''
-    else:
-        hours = int(hours)
-        if hours > 23 or hours < 0:
-            hours_error = 'Hour value out of range (0-23)'
-            hours = ''
-
-    if not is_integer(minutes):
-        minutes_error = 'Not a valid integer'
-        minutes = ''
-    else:
-        minutes = int(minutes)
-        if minutes > 59 or minutes < 0:
-            minutes_error = 'Minutes value out of range (0-59)'
-            minutes = ''
-
-    if not minutes_error and not hours_error:
-        time = str(hours) + ':' + str(minutes)
-        return redirect('/valid-time?time={0}'.format(time))
-    else:
-        template = jinja_env.get_template('time_form.html')
-        return template.render(hours_error=hours_error,
-            minutes_error=minutes_error,
-            hours=hours,
-            minutes=minutes)
-
-
-@app.route('/valid-time')
-def valid_time():
-    time = request.args.get('time')
-    return '<h1>You submitted {0}. Thanks for submitting a valid time!</h1>'.format(time)
-
-
+# Use a global variable to store tasks (until we learn about databases)
 tasks = []
+
+
+@app.route('/')
+def index():
+    """
+    You always need a root route to make things easy for customers
+    But it just needs to take us to the todo functionality shown in the videos
+    """
+    return redirect('/todos')
 
 @app.route('/todos', methods=['POST', 'GET'])
 def todos():
-
+    """
+    If we get a new task (a POST), add it to the list
+    then (or only, if we are responding to a GET)
+    Render the list of tasks using Jinja!!
+    """
     if request.method == 'POST':
         task = request.form['task']
         tasks.append(task)

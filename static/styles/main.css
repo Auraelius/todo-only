@@ -24,6 +24,9 @@ input {
 }
 
 #submit_button:hover {
+    position: relative;
+    left: -3px;
+    top: -3px;
     background:lightblue;
     box-shadow: 0px 5px 5px #777;
 }
